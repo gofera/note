@@ -1,6 +1,7 @@
 # 2017.12.15
 ## git
 git diff // diff between unmanaged change and repository
+
 git diff HEAD // diff between cached change (after git add command) and repository
 
 
