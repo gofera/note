@@ -56,4 +56,52 @@ PreferredAuthentications publickey
 IdentityFile ~/.ssh/id_rsa
 Port 443
 ```
+## yarn
+yarn global install a package, like angular cli:
+```
+yarn global add @angular/cli
+```
+Also need to add yarn path to the PATH. So it is better to use npm to install global, because it is no need to cache for global, so use npm is better.
+```
+npm install -g @angular/cli
+```
+
+# 2017.12.22
+## maven
+### create a maven project by command line
+```
+mvn archetype:generate -DgroupId=com.wenzhe -DartifactId=cwm -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+```
+The generated maven java project has a root folder named the same with artifactId.
+
+### create eclipse project from maven command line
+```
+cd $project_root
+mvn eclipse:eclipse
+```
+For idea, no action need to do, just open directly.
+
+## git bash
+### install linux command to git bash in windows
+For example, to install `tree` command, we can download the `tree.exe` from `http://gnuwin32.sourceforge.net/packages/tree.htm` and unzip, put the tree.exe to `$git_install_location/usr/bin` (the `$git_install_location` is root path in linux, i.e. `/`.) Then we can use it in Linux.
+```
+$ which tree
+/usr/bin/tree
+$ tree
+.
+|-- README.md
+`-- cwm
+    |-- pom.xml
+    `-- src
+        |-- main
+        |   `-- java
+        |       `-- com
+        |           `-- wenzhe
+        |               `-- App.java
+        `-- test
+            `-- java
+                `-- com
+                    `-- wenzhe
+                        `-- AppTest.java
+```
 
