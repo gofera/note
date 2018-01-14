@@ -15,3 +15,8 @@ isClassVisible = false;
 ```
 [ngClass]="{ 'myclass1': true, 'myclass2': false }"
 ```
+# for
+## for with index
+```
+<div *ngFor="let server of servers; let i=index">...</div>
+```
