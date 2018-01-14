@@ -11,4 +11,15 @@ git add .
 ```
 git checkout -- <file>...
 ```
-
+# file change history
+```
+gitk <file>
+```
+or:
+```
+gitk --follow <file>
+```
+For example:
+```
+gitk cwm-ng/src/app/app.module.ts
+```
