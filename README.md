@@ -263,4 +263,9 @@ ng serve
 ng build
 ```
 
+# 2018.01.16
+## tree command ignore folder/pattern
+```
+tree -I 'test*|docs|bin|lib'
+```
 

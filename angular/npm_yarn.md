@@ -69,5 +69,74 @@ yarn install
 # proxy
 If you cannot visit web, you can try to set proxy.
 
+Simply paste the following code at the bottom of your ~/.bashrc file:
+```
+######################
+# User Variables (Edit These!)
+######################
+username="myusername"
+password="mypassword"
+proxy="mycompany:8080"
+
+######################
+# Environement Variables
+# (npm does use these variables, and they are vital to lots of applications)
+######################
+export HTTPS_PROXY="http://$username:$password@$proxy"
+export HTTP_PROXY="http://$username:$password@$proxy"
+export http_proxy="http://$username:$password@$proxy"
+export https_proxy="http://$username:$password@$proxy"
+export all_proxy="http://$username:$password@$proxy"
+export ftp_proxy="http://$username:$password@$proxy"
+export dns_proxy="http://$username:$password@$proxy"
+export rsync_proxy="http://$username:$password@$proxy"
+export no_proxy="127.0.0.10/8, localhost, 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16"
+
+######################
+# npm Settings
+######################
+npm config set registry http://registry.npmjs.org/
+npm config set proxy "http://$username:$password@$proxy"
+npm config set https-proxy "http://$username:$password@$proxy"
+npm config set strict-ssl false
+echo "registry=http://registry.npmjs.org/" > ~/.npmrc
+echo "proxy=http://$username:$password@$proxy" >> ~/.npmrc
+echo "strict-ssl=false" >> ~/.npmrc
+echo "http-proxy=http://$username:$password@$proxy" >> ~/.npmrc
+echo "http_proxy=http://$username:$password@$proxy" >> ~/.npmrc
+echo "https_proxy=http://$username:$password@$proxy" >> ~/.npmrc
+echo "https-proxy=http://$username:$password@$proxy" >> ~/.npmrc
+
+######################
+# yarn Settings
+######################
+yarn config set registry https://registry.yarnpkg.com/
+yarn config set proxy "http://$username:$password@$proxy"
+yarn config set https-proxy "http://$username:$password@$proxy"
+yarn config set strict-ssl false
+
+######################
+# WGET SETTINGS
+# (Bonus Settings! Not required for npm to work, but needed for lots of other programs)
+######################
+echo "https_proxy = http://$username:$password@$proxy/" > ~/.wgetrc
+echo "http_proxy = http://$username:$password@$proxy/" >> ~/.wgetrc
+echo "ftp_proxy = http://$username:$password@$proxy/" >> ~/.wgetrc
+echo "use_proxy = on" >> ~/.wgetrc
+
+######################
+# CURL SETTINGS
+# (Bonus Settings! Not required for npm to work, but needed for lots of other programs)
+######################
+echo "proxy=http://$username:$password@$proxy" > ~/.curlrc
+```
+Then edit the "username", "password", and "proxy" fields in the code you pasted.
+
+Then call: `source ~/.bashrc`.
+
+Check your settings by running `npm config list` and `cat ~/.npmrc` (or `yarn config list` and `cat ~/.yarnrc`).
+
+Then you can use `npm install (-g)` (or `yarn install`) to install package from npm.
+
 # download is very slow in China, please use taobao image
 
