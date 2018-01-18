@@ -1,6 +1,10 @@
-# Angular中的maven：npm, yarn, Angular CLI
+# 从Java角度理解Angular之入门篇：npm, yarn, Angular CLI
 
-本文从`Java`程序员的角度，介绍`Angular`的开发工具：`npm, yarn, Angular CLI`。
+本系列从`Java`程序员的角度，带大家理解前端`Angular`框架。
+
+本文是入门篇。笔者认为亲自动手写代码做实验，是最有效最扎实的学习途径，而搭建开发环境是学习一门新技术最需要先学会的技能，是入门的前提，在此基础上，
+
+作为入门篇，本文重点介绍`Angular`的开发、编译工具：`npm, yarn, Angular CLI`，它们就像`Java`在中的`Maven`，同时顺便介绍一些`Angular`的概念。学习之后，希望你能够在自己的环境下练习、探索、编写出自己的第一个基于`Angular`的`Web`应用。
 
 在开始介绍之前，先了解下一些背景知识，理解单页应用与传统基于模板的多页应用在`Web`开发思路的不同。
 
@@ -10,14 +14,14 @@
 ## 服务端渲染
 传统的`Web`前端是多页应用的，客户端浏览器向服务器提交请求，服务端通过处理`HTML`模板（如`PHP`,`ASP`,`JSP`等），生成`HTML`文本返回给浏览器，浏览器重新渲染并且展示。HTML完全有后端决定，因此称为“服务端渲染”。客户端每次拿到都是一个HTML页面，这样一个Web应用就有很多页面，因此叫多页应用。
 ```
-服务器 ----(html)---> 浏览器
+服务器 ----(html页面)---> 浏览器
 ```
 由于浏览器每次都要解析整个`HTML`并渲染，因此效率较低，每次即使更新一个数据也要在网络上传输整个`HTML`文本，占用更多的带宽。
 
 ## 客户端渲染
 不同于传统多页应用，在`SPA`应用中，客户端浏览器向服务器提交请求，服务端返回数据（通常是`json`格式）给浏览器，浏览器中的`js`更新相应部分的`DOM`，从而更新展示。渲染的过程是在客户端浏览器完成的。
 ```
-服务器 ----(json)---> 浏览器
+服务器 ----(json数据)---> 浏览器
 ```
 
 优点：
@@ -35,10 +39,10 @@
 流行的`SPA`框架有`React`, `Vue`, `Angular`。本文基于`Angular 2/4/5+`（不是`Angular 1.x`或`AngularJS`）。
 
 # node.js
-`Java`开发需要`JDK`，`Angular`开发需要`node.js`。类似`JDK`，`node.js`下载之后不需要安装，只要加到`PATH`路径下即可。
+就像`Java`开发需要`JDK`，`Angular`开发需要`node.js`。类似`JDK`，`node.js`下载之后也不需要安装，只要加到`PATH`路径下即可。
 
 # 项目依赖管理工具
-像`Java`中的`maven`，开发`SPA`可以使用`npm`或者`yarn`。其中`npm`是`node.js`自带的，可以直接使用。
+像`Java`中的`maven`，开发`Angular`可以使用`npm`或者`yarn`。其中`npm`是`node.js`自带的，可以直接使用。
 
 另外，`npm`还有`maven`不具备的能力，它可以从网上下载并安装软件，类似于`Linux`中的`yum`。比如，`yarn`可以通过`npm`下载安装：
 ```
@@ -115,11 +119,13 @@ yarn config set strict-ssl false
 6. 编译目标路径（编译后生成）
 
 ## Angular脚手架
-安装Angular CLI：
+`Angular CLI`是`Angular`官方提供的命令行工具，可以帮助我们创建项目、编译、测试、运行，就像`Java`界的`Maven`，另外还可以创建组件、管道、指令、服务、模块、类、接口、枚举。。。
+
+可以用`npm`安装`Angular CLI`：
 ```
 npm install --global @angular/cli
 ```
-创建`angular`项目：
+创建`Angular`项目：
 ```
 ng new <project_name>
 ```
@@ -128,7 +134,7 @@ ng new <project_name>
 |-- package.json                   # 编译脚本、依赖包管理，类似maven的pom.xml。
 |-- src                            # 原代码，类似maven的src/main/java
 |   |-- app                        # 该应用的模块路径，angular支持模块化！
-|   |   |-- app.component.css      # 组件样式
+|   |   |-- app.component.css      # 组件样式（作用域只在该组件内部有效）
 |   |   |-- app.component.html     # 组件模板（视图）
 |   |   |-- app.component.spec.ts  # 组件单元测试
 |   |   |-- app.component.ts       # 组件控制代码（控制器）
@@ -166,7 +172,7 @@ yarn add/remove <package_name>[@<version>]
 
 `Angular CLI`提供支持，如下：
 ```
-ng serve [--port 4200]
+ng serve [--host 0.0.0.0] [--port 4200]
 ```
 `[]`表示可选的，不写端口号默认为`4200`。打开浏览器，输入`localhost:4200`可以看到你开发的网页。
 
@@ -193,7 +199,7 @@ ng test
 ```
 
 # 编译成目标文件
-像`mvn package`，`Angular CLI`可以一键运行编译导出目标文件（默认为`ES5`，即传统的`javascript`）：
+像`mvn compile`，`Angular CLI`可以一键运行编译导出目标文件（默认为`ES5`，即传统的`javascript`）：
 ```
 ng build [-prod]
 ```
@@ -209,8 +215,10 @@ total 413
 -rw-r--r-- 1 weliu 1049089  61268 Jan 15 08:50 polyfills.65fe1626e31e03d17f8e.bundle.js
 -rw-r--r-- 1 weliu 1049089      0 Jan 15 08:50 styles.d41d8cd98f00b204e980.bundle.css
 ```
+不如`maven compile`的地方，是`ng build`就只做编译，在编译前也不会先去下载未缓存的依赖包，因此完整的编译前需要手动调用`yarn install`。
+
 # 部署
-将`dist`中的文件放在`Web`服务器即可。
+将编译生成的`dist`文件夹中的所有文件放在`Web`服务器即可。
 
 也可以与服务端代码一起编译，打成一个包，方便部署。
 
@@ -256,18 +264,10 @@ cd dist/
 jar uf ../../back-end/target/my-web-server.war *
 ```
 
-# IDE
-免费版本推荐使用微软的`Visual Studio Code (VSCode)`, 很好用，但有条件一定要买付费的`IDE`：`JetBrain`的`WebStorm`。原因就跟`Java IDE`的选择一样，要免费的`Eclipse`，还是商业使用需付费的`IntelliJ IDEA`，看你或你的公司是不是土豪。
-
-笔者是屌丝，使用`VSCode`，编写`Angular`代码，推荐安装下面的插件：
-
-1. Angular 5 Snippets：`Angular`开发必备，这里我使用的是`Angular 5`。
-2. TSLint：`TypeScript`基于最佳实践的编程规范检测插件（类似于`Java`的`CheckStyle`），以红线实时提示你的不规范代码。
-3. TypeScript Importer：在编写`TypeScript`代码时，当你使用一个新的类，自动插入`import`语句。
-
-`Typescript`类型系统非常好的地方是`IDE`的提示非常好，比如能提示出类有哪些方法、哪些属性，再加上语法和方法与`Java`太像，使用起来非常自然、亲切。
+可以看到，就像`maven`一样，`Angular CLI`可以帮我们创建脚手架、编译、测试、运行，但她的能力可远不只这些，在开发过程中依然是个好助理，比如可以帮我们创建：组件、服务、管道、指令、模块等等。
 
 # 组件
+
 组件是一个独立的、可复用的、可组合的`UI`控件，网页界面就是一系列组件的有机结合。
 
 组件由组件名、视图、控制器组成。
@@ -284,12 +284,12 @@ ng g[enerate] c[omponent] hello [--inline-template] [--inline-style] [--spec fal
 src
 |   app
 |   |-- hello
-|   |   |-- hello.component.css      # 组件样式
+|   |   |-- hello.component.css      # 组件样式（作用域只在该组件内部有效）
 |   |   |-- hello.component.html     # 组件模板（视图）
 |   |   |-- hello.component.spec.ts  # 组件单元测试
 |   |   |-- hello.component.ts       # 组件控制代码（控制器）
 ```
-也可以把HTML模板和CSS都内联，并且不创建单元测试：
+嫌文件太多，也可以把`HTML`模板和`CSS`都内联进`TypeScript`，并且不创建单元测试：
 ```
 src
 |   app
@@ -297,20 +297,20 @@ src
 |   |   |-- hello.component.ts       # 组件全部代码：控制器、视图、样式
 ```
 
-`hello.component.ts`是一个内联了模板、`CSS`的文件：
+内联了模板、`CSS`的文件`hello.component.ts`长这个样子：
 ```
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-hello',   // 组件选择器（组件名）
-  template: `
+  template: `              // 组件模板（视图）
     <p>
       hello works!
     </p>
   `,
-  styles: []               // 样式CSS
+  styles: []               // 样式CSS（作用域只在该组件内部有效）
 })
-export class HelloComponent implements OnInit {
+export class HelloComponent implements OnInit { // 组件控制代码（控制器）
 
   constructor() { }
 
@@ -512,7 +512,7 @@ myServer$: Observable<Server> = http.get('api/server').map(res => res.json());
 ```
 就像`Linux`中的管道一样，`Angular`的管道也可以级联，上面的结果很容易以`json`格式显示出来：
 ```
-<div>{{ myObservable | async | json }}</div>
+<div>{{ myServer$ | async | json }}</div>
 ```
 显示结果为：
 ```
@@ -522,30 +522,103 @@ myServer$: Observable<Server> = http.get('api/server').map(res => res.json());
 }
 ```
 
-# 总结
-本文基于`Angular 2/4/5+`（不是`Angular 1.x`或`AngularJS`）。笔者作为一个`Java`背景的软件开发人员，选择`Angular`的原因有：
+# 模块
+可以看到，`Angular CLI`可以帮我们创建组件、服务、管道、指令等，非常方便，它们都有共同的特点，就是都会更改模块定义文件（`app.module.ts`）。
 
-## 它的编程语言是`TypeScript`
-`TypeScript`，是一种带有类型系统的、面向对象版本的`javascript`，是`ES6/7/8+`的超集:
+那么，什么是模块？
+
+类似于`Java 9`或`OSGi`的模块化，`Angular`应用天生就是模块化，概念都是差不多的。模块，就是在类和包之上在做封装，通常把协同完成某个功能的一组组件、服务作为一个整体，就是一个模块。打个比方，如果把模块想象成一个班级，那么组件、服务就是班上的同学。
+
+模块具有封装性和隔离性，模块外部无法访问模块内部的组件、服务，除非导入该模块。这一点，用过`OSGi`或`Eclipse RCP`很熟悉，一个模块相对于一个`Eclipse`插件。如果想在一个插件中使用另一个插件的类，常用的做法是在插件声明文件`MANIFEST.MF`中声明为`Require-Bundle`（当然`Eclipse`不只这一种方法，比如还可以动态导入、或只`import`包名让`OSGi`容器自动去匹配插件，目前`Angular`模块化还做不到这一点）。
+
+`Angular CLI`脚手架创建的`src/app/app.module.ts`，定义了一个由注解`@NgModule`装饰的类（模块类），用于管理该模块。这个文件就好比`Eclipse`插件中的`MANIFEST.MF`。一个模块类的代码如下：
+
+```
+import { BrowserModule } from '@angular/platform-browser';
+
+@NgModule({                   // 模块类的标识由该注解决定
+  declarations: [             // 声明组件、管道、指令，类型由具体类的注解来区分，用Angular CLI创建时会自动填入
+    AppComponent, MyPipe, MyDirective ...
+  ],
+  imports: [                  // imports指定要导入的模块，这样才可以使用其它模块内的组件、指令、管道、服务
+    BrowserModule, ...
+  ],
+  providers: [                // 声明服务，只有声明的服务才会被`Angular`框架创建出来，才能注入到其它服务或组件
+    MyService, ...            // 用Angular CLI创建时会自动填入
+  ],
+  bootstrap: [AppComponent]   // 引导组件
+})
+export class AppModule { }    // 模块类定义
+```
+
+一个`Angular`应用中可以有多个模块，用`Angular CLI`可以很容易创建一个模块：
+```
+ng g module your-new-module-name
+```
+
+# `Angular CLI`创建`TypeScript`类
+创建普通类：
+```
+ng g class my-new-class
+```
+创建接口：
+```
+ng g interface my-new-interface
+```
+创建枚举：
+```
+ng g enum my-new-enum
+```
+
+# IDE
+免费版本推荐使用微软的`Visual Studio Code (VSCode)`, 很好用，但有条件一定要买付费的`IDE`：`JetBrain`的`WebStorm`。原因就跟`Java IDE`的选择一样，要免费的`Eclipse`，还是商业使用需付费的`IntelliJ IDEA`，看你或你的公司是不是土豪。
+
+笔者是穷屌丝，使用`VSCode`，编写`Angular`代码，推荐安装下面的插件：
+
+1. Angular 5 Snippets：`Angular`开发必备，这里我使用的是`Angular 5`。
+2. TSLint：`TypeScript`基于最佳实践的编程规范检测插件（类似于`Java`的`CheckStyle`），以红线实时提示你的不规范代码。
+3. TypeScript Importer：在编写`TypeScript`代码时，当你使用一个新的类，自动插入`import`语句。
+
+`Typescript`类型系统非常好的地方是`IDE`的提示非常好，比如能提示出类有哪些方法、哪些属性，再加上语法和方法与`Java`太像，使用起来非常自然、亲切。
+
+# 总结
+
+读到这里，相信你已经有了`Angular`的开发环境，并且对一些`Angular`的概念有了初步理解，能够与服务端一起编译并部署到`Web`服务器上。
+
+也许你会问我，有那么多`Web`前端框架，为什么偏爱`Angular`？
+
+## 选择`Angular`的原因
+笔者作为一个`Java`背景的软件开发人员，选择`Angular`的原因有：
+
+### 使用`TypeScript`编程
+`TypeScript`，其实并不是一种新语言，她仍然还是`JavaScript`，是一种带有类型系统的、面向对象版本的`JavaScript`，是`ES6/7/8+`的超集:
 
 1. 语法类似`Java/Kotlin`，很多语言特性、关键字、类方法名都是一样的；
 2. 类型系统可以在编译期做检查，避免敲错字；
 3. 类型系统可以帮助`IDE`分析代码，代码跳转、引用分析、出错实时提醒等；
 4. 类型系统可以提高代码的可读性、可维护性、类型安全性，调用方法时可以避免传入不期望的类型；
 5. `TypeScript`是`ES6+`的超集，是`ES6`规范的实现，在未来的浏览器很可能直接支持；
-6. `TypeScript`可以直接编译成`ES5`，在现有版本的`Angular`是默认编译目标，无需引入任何编译依赖和配置；
+6. `TypeScript`可以直接编译成`ES5`运行于旧浏览器，在现有版本的`Angular`是默认编译目标，无需引入任何编译依赖和配置；
 7. `TypeScript`与其编译出的`ES5 javascript`代码是一一对应的，很多时候就是类型擦除，无需额外库，不像`Kotlin.js`那么重。
 8. 拼爹时代，这点还是要考虑的：微软的`TypeScript`，加上谷歌的`Angular`，非常看好它的前景。
+9. `JavaScript`编写的库可以在`TypeScript`使用，缺乏类型声明部分，社区以提供大量第三方`js`库的类型定义，一般不需要自己做，当然，想自定义个类型也不难。
 
-## 很像`Spring Boot`框架
+如果你是`Java`程序员，应该会赞成这句话：“`TypeScript`一点都不难，`JavaScript`才叫难！”。
+
+当然如果你真的不习惯写类型，那不写也可以，因为`TypeScript`是`ES6+`的超集，`ES6+`的代码在`TypeScript`完全合法，不过就没有了编译时类型检查，`IDE`也不会帮你跳转和引用分析，也不会做方法提示，你能接受缺乏类型安全机制的痛苦吗？我不能！
+
+### 很像`Spring Boot`框架
 `Angular`框架很像`Spring Boot`框架(都无需额外配置)，有组件、服务、依赖注入、基于注解的配置，容器管理组件、服务的生命周期等特性；
 
-## 基于`rxjs`
-`rxjs`可以方便异步响应式编程和事件总线（就是`Java`中的`RxJava`的`TypeScript`版本）。
+### 基于`rxjs`
+`rxjs`可以方便编写异步响应式代码、处理事件总线、大量可组合的操作符、等等（其实就是流行的`RxJava`的`TypeScript`版本）。
+
+### 模块化
+模块化对于构建大型复杂的`Web`系统来说尤为重要。
 
 ## 所以
 
-对于`Java`、`Kotlin`等静态强类型语言背景的开发人员来说，`Angular`学习门槛较低，因为很多语法特性、概念都太像`Java`了。
+对于`Java`、`Kotlin`等静态强类型语言背景的开发人员来说，`Angular`学习门槛较低，因为很多特性、概念都太`Java`了。
 
 而对于`JavaScript`、`Python`等动态语言背景的开发人员，入手`React`, `Vue`可能更容易，因为它们都是基于`ES6`的无类型系统。
 
