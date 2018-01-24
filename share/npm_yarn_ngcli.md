@@ -2,7 +2,7 @@
 
 本系列从`Java`程序员的角度，带大家理解前端`Angular`框架。
 
-本文是入门篇。笔者认为亲自动手写代码做实验，是最有效最扎实的学习途径，而搭建开发环境是学习一门新技术最需要先学会的技能，是入门的前提，在此基础上，
+本文是入门篇。笔者认为亲自动手写代码做实验，是最有效最扎实的学习途径，而搭建开发环境是学习一门新技术最需要先学会的技能，是入门的前提。
 
 作为入门篇，本文重点介绍`Angular`的开发、编译工具：`npm, yarn, Angular CLI`，它们就像`Java`在中的`Maven`，同时顺便介绍一些`Angular`的概念。学习之后，希望你能够在自己的环境下练习、探索、编写出自己的第一个基于`Angular`的`Web`应用。
 
@@ -39,7 +39,9 @@
 流行的`SPA`框架有`React`, `Vue`, `Angular`。本文基于`Angular 2/4/5+`（不是`Angular 1.x`或`AngularJS`）。
 
 # node.js
-就像`Java`开发需要`JDK`，`Angular`开发需要`node.js`。类似`JDK`，`node.js`下载之后也不需要安装，只要加到`PATH`路径下即可。
+就像`Java`开发需要`JDK`，`Angular`开发需要`node.js`。`Java`编译出来的字节码需要`Java`虚拟机`JRE`执行，而如果想在浏览器以外执行`JavaScript`代码，也需要类似的虚拟机平台，也就是`node.js`。
+
+类似`JDK`，`node.js`下载之后也不需要安装，只要加到`PATH`路径下即可。这里需要`node.js`是因为很多前端开发工具是有`JavaScript`写成的，如`npm`，它们需要`node.js`这个虚拟机。
 
 # 项目依赖管理工具
 像`Java`中的`maven`，开发`Angular`可以使用`npm`或者`yarn`。其中`npm`是`node.js`自带的，可以直接使用。
@@ -57,6 +59,13 @@ npm install --global yarn
 ```
 npm config set registry http://registry.npmjs.org/
 yarn config set registry https://registry.yarnpkg.com/
+```
+
+### 科学上网
+国内用户可以通过淘宝镜像提高下载速度：
+```
+npm config set registry https://registry.npm.taobao.org
+yarn config set registry https://registry.npm.taobao.org
 ```
 
 ## 代理
@@ -163,9 +172,9 @@ ng new <project_name>
 ## 添加/删除依赖
 还可以用命令行来添加/删除依赖：
 ```
-yarn add/remove <package_name>[@<version>]
+yarn add/remove <package_name>[@<version>] [--dev/-D]
 ```
-`[]`表示可选的，不写为最新版本。命令执行后会自动更新`package.json`文件。
+`[]`表示可选的，不写为最新版本。命令执行后会自动更新`package.json`文件。`--dev`或`-D`表示包只是开发时候需要，最终产品打包是不包含的，类似与`Maven`中的`provided scope`。
 
 # 开发阶段：运行
 对于前后端分离的应用，前端开发与后端独立开，前端应用在没有启动后端服务器的情况下也应该能够运行。
@@ -222,7 +231,7 @@ total 413
 
 也可以与服务端代码一起编译，打成一个包，方便部署。
 
-## 与Java后端一起部署
+## 与Java后端一起部署（使用Maven）
 对于使用`Spring Boot`的后端`Java`代码，只提供`RESTful`的数据服务，可以打包成一个独立可执行的`jar/war`包：
 ```
 $ cd back-end
@@ -264,7 +273,104 @@ cd dist/
 jar uf ../../back-end/target/my-web-server.war *
 ```
 
-可以看到，就像`maven`一样，`Angular CLI`可以帮我们创建脚手架、编译、测试、运行，但她的能力可远不只这些，在开发过程中依然是个好助理，比如可以帮我们创建：组件、服务、管道、指令、模块等等。
+## 与Java后端一起部署（使用Gradle）
+如果使用`Gradle`编译打包整个前后端应用，就更简单，因为已经有`Gradle`插件`com.moowork.node`直接支持。
+
+在前端`Angular`项目（比如名为`front-end`)中，加入`build.gradle`文件，内容如下：
+```
+plugins {
+  id "com.moowork.node" version "0.13"
+}
+
+apply plugin: 'java'
+
+// configure gradle-node-plugin
+node {
+  version = '6.5.0'
+  npmVersion = '3.10.7'
+  // If true, it will download node using above parameters.
+  // If false, it will try to use globally installed node.
+  download = false // true
+  workDir = file("${project.projectDir}/node")
+}
+task compileTypeScript(type: NpmTask) {
+  // install the express package only
+  args = ['run-script', "tsc"]
+}
+
+// clean node/node_modules/dist
+task npmClean(type: Delete, group: 'node') {
+  final def webDir = "${project.projectDir}"
+  //delete "${webDir}/node"
+  //delete "${webDir}/node_modules"
+  delete "${webDir}/dist"
+}
+
+clean.dependsOn(npmClean)
+
+task npmStart(type: NpmTask) {
+  args = ['start']
+  group = "node"
+  dependsOn("npmInstall")
+}
+
+task npmBuild(type: NpmTask) {
+  args = ['run', 'build']
+  group = "node"
+  dependsOn("npmInstall")
+}
+
+jar {
+  dependsOn("npmBuild")
+  from(fileTree("dist")) {
+    into "META-INF/resources"
+  }
+}
+```
+在前端`Angular`项目的根目录中直接执行：
+```
+gradle build
+```
+就可以编译、打包，在`Gradle`约定的输出目录`build/libs/`下生成目标`jar`文件，包含所有`Web`资源。
+```
+front-end
+|   build
+|   |-- libs
+|   |   |-- front-end-0.0.1.jar
+```
+
+在后端`Java`项目`back-end`中的`build.gradle`中加入对前端`Angular`项目的依赖即可。
+```
+dependencies {
+  compile project(":front-end")
+  ...
+```
+为了一键编译、打包整个前后端工程，可以在前后端项目的父目录中加入`build.gradle`:
+```
+task wrapper(type: Wrapper) {
+  gradleVersion = '3.0'
+}
+```
+和`settings.gradle`：
+```
+rootProject.name = 'my-web-product'
+include 'front-end'
+include 'back-end'
+```
+在此根目录中，可以一键直接执行：
+```
+gradle build
+```
+这样编译、打包整个前后端工程，在后端项目中生成最终包含`Web`资源的文件：
+```
+my-web-product
+|   back-end
+|   |   build
+|   |   |-- libs
+|   |   |   |-- my-web-product-0.0.1.war
+```
+
+可以看到，就像`maven`或`gradle`一样，`Angular CLI`可以帮我们创建脚手架、编译、测试、运行，但她的能力可远不只这些，在开发过程中依然是个好助理，比如可以帮我们创建：组件、服务、管道、指令、模块等等。
 
 # 组件
 
@@ -437,7 +543,7 @@ java -jar hello.jar
 第二种办法可以创建一个名叫`join`的管道，类型`Linux`管道一样使用：
 ```
 <div>
-  {{ command | join: ' ') }}
+  {{ command | join: ' ' }}
 </div>
 ```
 `Angular CLI`有创建管道的方法，下面的命令在src/app/pipes目录下创建了一个叫`join`的管道（同时自动将组件注册到模块`app.module.ts`中，这样同模块的其它组件才可以使用)：
