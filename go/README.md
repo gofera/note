@@ -55,15 +55,24 @@ go install : go build + 把编译后的可执行文件放到GOPATH/bin目录下
 go get : git clone + go install
 
 # 集成开发环境IDE
+## JetBrains的Goland
+这是Go最好的IDE，官网：https://www.jetbrains.com/go/。
+
+非常好，缺点是收费。
+
 ## LiteIDE
+第一款专门开发Go的开源免费IDE。
+
 GitHub地址：https://github.com/visualfc/liteide，有中文官网：http://liteide.org/cn/documents/。
 
-解压即可运行。
+解压即可运行。免费软件中的首选。有简单的重构（rename），引用查找。
 
 ## Eclipse
 在Eclipse Market中搜索Go，安装插件，可参考：[Eclipse配置开发Go的插件——Goclipse](http://blog.csdn.net/linshuhe1/article/details/73473812)。
 
 调试可以使用LiteIDE下的GDB，方法是在Debug Configuration中指定GDB的路径。
+
+好的地方是免费，不好的地方是读代码没有tooltip显示变量类型，点击一个变量没有高亮其它引用。
 
 
 # 调试
@@ -76,36 +85,6 @@ GitHub地址：https://github.com/derekparker/delve，可以用 `go get` 下载�
 ```
 go get -u github.com/derekparker/delve/cmd/dlv
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -126,3 +105,6 @@ go get -u github.com/derekparker/delve/cmd/dlv
 [Go语言实战笔记（二十三）| Go 调试](http://www.flysnow.org/2017/06/07/go-in-action-go-debug.html)
 
 [Go语言几大命令简单介绍](http://blog.csdn.net/wuya814070935/article/details/50219915)
+
+[windows下用eclipse+goclipse插件+gdb搭建go语言开发调试环境](http://rongmayisheng.com/post/windows%E4%B8%8B%E7%94%A8eclipsegoclipse%E6%8F%92%E4%BB%B6gdb%E6%90%AD%E5%BB%BAgo%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83)
+
