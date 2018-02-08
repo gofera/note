@@ -38,6 +38,11 @@ $ ./hello
 hello, world
 
 ```
+推荐使用`go install`，这样会在`$GOPATH/bin`下生成可执行文件。
+```
+cd $GOPATH         # 需要在 $GOPATH 下
+go install hello   # hello 为 $GOPATH/src 下的子目录，里面是编译的内容
+```
 
 # Go命令行工具
 ## get
@@ -65,7 +70,7 @@ go get : git clone + go install
 
 GitHub地址：https://github.com/visualfc/liteide，有中文官网：http://liteide.org/cn/documents/。
 
-解压即可运行。免费软件中的首选。有简单的重构（rename），引用查找。
+解压即可运行。免费软件中的首选。有简单的重构（rename），引用查找。Go非常好，不需要什么工程文件，编译文件。
 
 ## Eclipse
 在Eclipse Market中搜索Go，安装插件，可参考：[Eclipse配置开发Go的插件——Goclipse](http://blog.csdn.net/linshuhe1/article/details/73473812)。
@@ -86,8 +91,30 @@ GitHub地址：https://github.com/derekparker/delve，可以用 `go get` 下载�
 go get -u github.com/derekparker/delve/cmd/dlv
 ```
 
+# 第三方库
+安装：
+```
+go get -u github.com/...   （项目的github路径）
+```
+会下载到$GOPATH/src下，并安装到$GOPATH/pkg下。
 
+## Go编译能不能像mvn那样下载所需依赖？（我觉得应该没有）
 
+## [RxGo](https://github.com/ReactiveX/RxGo)
+安装：
+```
+go get -u github.com/reactivex/rxgo
+```
+然后就可以在项目上使用了：
+```
+import (
+	"github.com/reactivex/rxgo"
+	"github.com/reactivex/rxgo/observer"
+	"github.com/reactivex/rxgo/observable"
+	//...
+)
+observable.Just(...).Subscribe(...)
+```
 
 # Reference
 [Download](https://golang.org/dl/)

@@ -50,5 +50,4 @@ func main() {
 	for _, eater := range eaters {
 		eater.Eat("milk")
 	}
-
 }
