@@ -52,18 +52,25 @@ go get -u github.com/nsf/gocode
 go get -u golang.org/x/tools/cmd/guru
 go get -u github.com/rogpeppe/godef
 ```
+go get = git clone + go install
+
+
 
 go build : 编译出可执行文件
 
-go install : go build + 把编译后的可执行文件放到GOPATH/bin目录下
+go install : go build + 把编译后的可执行文件放到$GOPATH/bin目录下
 
-go get : git clone + go install
+可以把$GOPATH/bin加到PATH路径，这样就可以在任何路径直接使用go get/install 下载的或自己编译出来的程序。
 
 # 集成开发环境IDE
 ## JetBrains的Goland
 这是Go最好的IDE，官网：https://www.jetbrains.com/go/。
 
 非常好，缺点是收费。
+
+ZuChiMa: 
+1. http://blog.csdn.net/john_f_lau/article/details/78762330
+2. https://www.youbbs.org/t/2115
 
 ## LiteIDE
 第一款专门开发Go的开源免费IDE。
@@ -82,13 +89,50 @@ GitHub地址：https://github.com/visualfc/liteide，有中文官网：http://li
 
 # 调试
 ## GDB
-Windows下可以使用LiteIDE里面的GDB。
+Windows下可以使用LiteIDE里面的GDB。由于是GDB并不是专门为Go设计的，所以不理解Go协程，更推荐使用Delve来调试。
 
 ## Delve
+Delve是一个更好用的专门为Go设计的调试工具，
 GitHub地址：https://github.com/derekparker/delve，可以用 `go get` 下载安装：
 
 ```
 go get -u github.com/derekparker/delve/cmd/dlv
+```
+可以`dlv --help`给出帮助，比如调试可以用下面命令：
+```
+dlv debug wenzhe/lab      # wenzhe/lab包是要调试的包，相对于$GOPATH/src的路径, 里面有可执行程序，
+```
+进入`debug`模式后，可以`help`列出帮助，其实与gdb的命令差不多，多了协程支持。
+```
+(dlv) b main.main
+Breakpoint 1 set at 0x401018 for main.main() /home/weliu/code/go/src/wenzhe/lab/hello.go:30
+(dlv) c
+> main.main() /home/weliu/code/go/src/wenzhe/lab/hello.go:30 (hits goroutine(1):1 total:1) (PC: 0x401018)
+    25:		})
+    26:		<-sub
+    27:		fmt.Println("After <-sub")
+    28:	}
+    29:	
+=>  30:	func main() {
+    31:		a := "hello"
+    32:		b := 123
+    33:		fmt.Println(a, b)
+    34:		//HelloRxGo()
+    35:	}
+(dlv) n
+(dlv) n
+> main.main() /home/weliu/code/go/src/wenzhe/lab/hello.go:32 (PC: 0x401047)
+    27:		fmt.Println("After <-sub")
+    28:	}
+    29:	
+    30:	func main() {
+    31:		a := "hello"
+=>  32:		b := 123
+    33:		fmt.Println(a, b)
+    34:		//HelloRxGo()
+    35:	}
+(dlv) print a
+"hello"
 ```
 
 # 第三方库
