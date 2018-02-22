@@ -6,6 +6,23 @@
 export GOROOT=$HOME/tool/go
 export PATH=$PATH:$GOROOT/bin
 ```
+## 国内下载Go及第三方包
+国内长城挡住了Go，可以去[Golang中国](https://www.golangtc.com/)下载：
+1. [国内Go下载地址](https://www.golangtc.com/download)
+2. [国内第三方包下载方法](https://www.golangtc.com/download/package)
+
+附上 golang.org/x/xxx 包的手动安装方法：
+
+golang.org/x/xxx 这类包托管在 github.com/golang，从这里找到相应的包即可。比如 golang.org/x/crypto 包的安装，找到对应的地址为： https://github.com/golang/crypto ，运行以下命令：
+```
+$ cd $GOPATH/src
+$ mkdir golang.org
+$ cd golang.org
+$ mkdir x
+$ cd x
+$ git clone https://github.com/golang/crypto.git
+$ go install golang.org/x/crypto
+```
 ## 测试是否成功
 不设置`GOPATH`，缺省为`$HOME/go`，
 ```
@@ -160,6 +177,9 @@ import (
 observable.Just(...).Subscribe(...)
 ```
 
+## Actor
+类似于Akka Actor的[protoactor-go](https://github.com/AsynkronIT/protoactor-go)
+
 # Reference
 [Download](https://golang.org/dl/)
 
@@ -179,3 +199,10 @@ observable.Just(...).Subscribe(...)
 
 [windows下用eclipse+goclipse插件+gdb搭建go语言开发调试环境](http://rongmayisheng.com/post/windows%E4%B8%8B%E7%94%A8eclipsegoclipse%E6%8F%92%E4%BB%B6gdb%E6%90%AD%E5%BB%BAgo%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83)
 
+[Golang中国](https://www.golangtc.com/)
+
+[Golang的包依赖管理 （package dependency manager）](http://blog.csdn.net/abccheng/article/details/51841754)
+
+[Golang 包依赖管理](http://blog.csdn.net/z770816239/article/details/78909011)
+
+[用dep代替 go get 来获取私有库](http://blog.csdn.net/jq0123/article/details/78457210?locationnum=7&fps=1)
