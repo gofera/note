@@ -180,6 +180,9 @@ observable.Just(...).Subscribe(...)
 ## Actor
 类似于Akka Actor的[protoactor-go](https://github.com/AsynkronIT/protoactor-go)
 
+## etcd
+类似ZooKeeper，但更好用，分布式一致性库 (https://github.com/coreos/etcd)
+
 # Reference
 [Download](https://golang.org/dl/)
 

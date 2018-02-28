@@ -23,3 +23,8 @@ For example:
 ```
 gitk cwm-ng/src/app/app.module.ts
 ```
+
+# disable converting to windows line end
+```
+$ git config --global core.autocrlf false //禁用自动转换
+```
