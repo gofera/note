@@ -28,3 +28,28 @@ gitk cwm-ng/src/app/app.module.ts
 ```
 $ git config --global core.autocrlf false //禁用自动转换
 ```
+
+# git find history
+```
+$ git log
+```
+
+# git list branch
+```
+git branch
+```
+
+# git create new branch
+```
+git branch <new_branch_name>
+```
+
+# git switch branch
+```
+git checkout <other_branch_name>
+```
+
+# git create and switch branch
+```
+git checkout -b <new_branch_name>
+```
