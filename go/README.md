@@ -152,6 +152,54 @@ Breakpoint 1 set at 0x401018 for main.main() /home/weliu/code/go/src/wenzhe/lab/
 "hello"
 ```
 
+# Go Web开发
+## Go与Angular2+
+前端Angular开发，编译产生dist文件夹。
+```
+ng build [-prod]
+```
+Go实现后端提供REST服务，并作为服务器启动，代码很简单：
+```
+package main
+
+import (
+    "encoding/json"
+    "log"
+    "net/http"
+)
+
+func main() {
+    http.HandleFunc("/api/servers", getServers)           // 提供REST服务
+    http.Handle("/", http.FileServer(http.Dir("./dist"))) // Angular编译出的结果文件
+    http.ListenAndServe(":8080", nil)                     // 启动Web服务
+}
+
+type MyServer struct {
+    Host        string `json:"host"`
+    Port        int    `json:"port"`
+    Status      string `json:"status"`
+    IsReachable bool   `json:"isReachable"`
+}
+
+func getServers(w http.ResponseWriter, r *http.Request) {
+    server := MyServer{"172.168.58.102", 8080, "new", true}
+    servers := []MyServer{server}
+    output, err := json.Marshal(&servers)
+    if err != nil {
+        log.Fatal(err)
+    }
+    w.Header().Set("Content-Type", "application/json")
+    w.Write(output)
+}
+```
+进入到包含dist的目录（也就是Angular项目的目录），Go编译产生可执行文件，运行即可启动Web服务，提供angular页面并能正确展示且能与Web服务通信。
+```
+cd <angular-project>
+go build <go-web-app>
+./<go-web-app>
+```
+打包给别人用，只需要提供Go编译的可执行文件以及angular编译的dist文件夹。
+
 # 第三方库
 安装：
 ```
