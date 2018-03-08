@@ -200,6 +200,13 @@ go build <go-web-app>
 ```
 打包给别人用，只需要提供Go编译的可执行文件以及angular编译的dist文件夹。
 
+# 工具
+## gore （交互式命令行，类似Python IDLE）
+https://github.com/motemen/gore
+
+## gophernotes （嵌入Jupyter Notebook，基于网页的交互命令行）
+https://github.com/gopherdata/gophernotes
+
 # 第三方库
 安装：
 ```
