@@ -79,11 +79,18 @@ go install : go build + 把编译后的可执行文件放到$GOPATH/bin目录下
 
 可以把$GOPATH/bin加到PATH路径，这样就可以在任何路径直接使用go get/install 下载的或自己编译出来的程序。
 
+## test
+单元测试用go test：
+```
+go test github.com/WenzheLiu/GoCRMS/gocrms  // run all test in package gocrms
+go test -run TestCrmsd github.com/WenzheLiu/GoCRMS/gocrms  // run TestCrmsd in package gocrms
+```
+
 # 集成开发环境IDE
 ## JetBrains的Goland
 这是Go最好的IDE，官网：https://www.jetbrains.com/go/。
 
-非常好，缺点是收费。
+非常好，缺点是收费。license server: http://idea.youbbs.org
 
 ZuChiMa: 
 1. http://blog.csdn.net/john_f_lau/article/details/78762330
@@ -121,7 +128,7 @@ dlv debug wenzhe/lab      # wenzhe/lab包是要调试的包，相对于$GOPATH/s
 ```
 进入`debug`模式后，可以`help`列出帮助，其实与gdb的命令差不多，多了协程支持。
 ```
-(dlv) b main.main
+(dlv) b main.main  # 包名.方法名 或者 路径/xx.go:行号
 Breakpoint 1 set at 0x401018 for main.main() /home/weliu/code/go/src/wenzhe/lab/hello.go:30
 (dlv) c
 > main.main() /home/weliu/code/go/src/wenzhe/lab/hello.go:30 (hits goroutine(1):1 total:1) (PC: 0x401018)
@@ -150,6 +157,14 @@ Breakpoint 1 set at 0x401018 for main.main() /home/weliu/code/go/src/wenzhe/lab/
     35:	}
 (dlv) print a
 "hello"
+```
+如果被调试程序有参数，使用`--`分隔，
+```
+dlv exec etcd -- --name=... port xxx  # --name，port为可执行程序etcd的参数
+```
+对类的方法设断点，比如：Config类的PeerURLsMapAndToken方法：
+```
+b embed.(*Config).PeerURLsMapAndToken
 ```
 
 # Go Web开发
@@ -200,6 +215,8 @@ go build <go-web-app>
 ```
 打包给别人用，只需要提供Go编译的可执行文件以及angular编译的dist文件夹。
 
+可以与Angular前后端独立开发，对于跨域问题的解决很简单，可查看note/angular/README.md。
+
 # 工具
 ## gore （交互式命令行，类似Python IDLE）
 https://github.com/motemen/gore
@@ -238,6 +255,16 @@ observable.Just(...).Subscribe(...)
 ## etcd
 类似ZooKeeper，但更好用，分布式一致性库 (https://github.com/coreos/etcd)
 
+采用raft协议，下面的动画帮助理解：http://thesecretlivesofdata.com/raft/
+
+# 坑
+## 不用在unit test的goroutine中使用testing包的方法Fatal或者Error
+
+## 为什么值为 nil 的 error 却不等于 nil
+interface 被两个元素 value 和 type 所表示。只有在 value 和 type 同时为 nil 的时候，判断 interface == nil 才会为 true。
+
+Reference: [Golang 博主走过的有关 error 的一些坑](https://deepzz.com/post/why-nil-error-not-equal-nil.html)
+
 # Reference
 [Download](https://golang.org/dl/)
 
@@ -264,3 +291,7 @@ observable.Just(...).Subscribe(...)
 [Golang 包依赖管理](http://blog.csdn.net/z770816239/article/details/78909011)
 
 [用dep代替 go get 来获取私有库](http://blog.csdn.net/jq0123/article/details/78457210?locationnum=7&fps=1)
+
+[Golang 中的格式化输入输出](http://www.cnblogs.com/golove/p/3284304.html)
+
+[golang使用vendor目录来管理依赖包](https://www.jianshu.com/p/e52e3e1ad1c0)
