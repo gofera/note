@@ -8,7 +8,7 @@ export PATH=$PATH:$GOROOT/bin
 ```
 ## 国内下载Go及第三方包
 国内长城挡住了Go，可以去[Golang中国](https://www.golangtc.com/)下载：
-1. [国内Go下载地址](https://www.golangtc.com/download)
+1. [Go.cn](https://golang.google.cn/dl/), [国内Go下载地址](https://www.golangtc.com/download)
 2. [国内第三方包下载方法](https://www.golangtc.com/download/package)
 
 附上 golang.org/x/xxx 包的手动安装方法：
