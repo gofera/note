@@ -97,3 +97,9 @@ cat /proc/85712/limits
 ```
 watch "lsof -p 85712 | grep ESTABLIS | wc -l"
 ```
+
+# pstree
+Show process tree:
+```
+ps -p <pid>
+```

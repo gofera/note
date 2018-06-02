@@ -224,6 +224,23 @@ https://github.com/motemen/gore
 ## gophernotes （嵌入Jupyter Notebook，基于网页的交互命令行）
 https://github.com/gopherdata/gophernotes
 
+# Mock
+```
+$ go get github.com/golang/mock/gomock
+$ go install github.com/golang/mock/mockgen
+$ mkdir mock
+$ mockgen -source=crms.go > gocrms/mock_crms.go
+```
+也可以使用 go generate 命令，比如把下面代码加入到crms.go文件的第一行，
+```
+//go:generate mockgen -source crms.go -destination mock/crms_mock.go github.com/WenzheLiu/GoCRMS/v2/gocrms CrmsServer
+```
+然后使用`go generate`即可生成（注意先创建目录）：
+```
+$ mkdir mock
+$ go generate  github.com/WenzheLiu/GoCRMS/v2/gocrms
+```
+
 # 第三方库
 安装：
 ```
@@ -264,6 +281,14 @@ observable.Just(...).Subscribe(...)
 interface 被两个元素 value 和 type 所表示。只有在 value 和 type 同时为 nil 的时候，判断 interface == nil 才会为 true。
 
 Reference: [Golang 博主走过的有关 error 的一些坑](https://deepzz.com/post/why-nil-error-not-equal-nil.html)
+
+# Question
+
+## channel 可以 close(ch) 我们不用的时候需不需要同样关闭掉，不需要的话 close 主要是什么作用的？
+
+channel不需要通过close释放资源，只要没有goroutine持有channel，相关资源会自动释放。
+
+close可以用来通知channel接收者不会再收到数据。所以即使channel中有数据也可以close而不会导致接收者收不到残留的数据。
 
 # Reference
 [Download](https://golang.org/dl/)
