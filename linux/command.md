@@ -103,3 +103,18 @@ Show process tree:
 ```
 ps -p <pid>
 ```
+
+# ps display pid,ppid,pgid,sid
+```
+$ ps xao pid,ppid,pgid,sid,comm
+  PID  PPID  PGID   SID COMMAND
+    1     0     1     1 init
+ 8593     1  8509  8509 dbus-activation
+ 8597  8593  8509  8509 hud-service
+ 9360     1  9360  9360 bash
+12638     1 12638 12638 bash
+21799 12638 21799 12638 gore
+22126  9360 22126  9360 testkill
+22139     1 21799 12638 gocode
+22161  9360 22161  9360 ps
+```
