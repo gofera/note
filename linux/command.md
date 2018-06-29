@@ -56,6 +56,21 @@ Connection to fnode400 closed.
 
 Reference: https://www.tecmint.com/ssh-passwordless-login-using-ssh-keygen-in-5-easy-steps/
 
+# SSH command without prompting the message for ssh key save or cancel options
+```
+ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null my-server-leaf-5 echo "5" >> ~/tmp/a
+```
+You are looking to disable "Host Key Verification" and you need the following SSH options:
+```
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+```
+If adding them to the command (rather than your ssh config file) then use
+```
+-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+```
+after the -q in your example command.
+
 # lsof
 ```
 lsof -p 744158 | grep ESTABLIS | wc -l

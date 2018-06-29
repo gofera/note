@@ -96,6 +96,9 @@ then `source ~/.bashrc` in each server. And then run:
 $ etcd_fnode404 (or 408, 402 in the related server)
 ```
 
+## Bug: etcd --name xxxx-xxx
+The name cannot have '-', or else fail.
+
 ## Pure command line
 ```
 ETCDCTL_API=3 etcd  --name=fnode404 --initial-advertise-peer-urls=http://172.20.1.14:12380 --listen-peer-urls=http://172.20.1.14:12380 --listen-client-urls=http://172.20.1.14:12379 --advertise-client-urls=http://172.20.1.14:12379 --initial-cluster-token=etcd-cluster-1 --initial-cluster=http://172.20.1.14:12380,fnode408=http://172.20.1.18:12380,fnode402=http://172.20.1.12:12380 --initial-cluster-state=new
