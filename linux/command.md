@@ -56,6 +56,37 @@ Connection to fnode400 closed.
 
 Reference: https://www.tecmint.com/ssh-passwordless-login-using-ssh-keygen-in-5-easy-steps/
 
+# SSH command without prompting the message for ssh key save or cancel options
+## Solution 1: command line
+```
+ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null my-server-leaf-5 echo "5" >> ~/tmp/a
+```
+You are looking to disable "Host Key Verification" and you need the following SSH options:
+```
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+```
+If adding them to the command (rather than your ssh config file) then use
+```
+-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+```
+after the -q in your example command.
+
+(Seems -q can be removed, not sure by wenzhe)
+
+## Solution 2: configure file
+
+In your ~/.ssh/config (if this file doesn't exist, just create it):
+```
+Host *
+    StrictHostKeyChecking no
+```
+This will turn it off for all hosts you connect to. You can replace the * with a hostname pattern if you only want it to apply to some hosts.
+
+Make sure the permissions on the file restrict access to yourself only:
+```
+sudo chmod 400 ~/.ssh/config
+```
 # lsof
 ```
 lsof -p 744158 | grep ESTABLIS | wc -l
@@ -118,3 +149,37 @@ $ ps xao pid,ppid,pgid,sid,comm
 22139     1 21799 12638 gocode
 22161  9360 22161  9360 ps
 ```
+
+# How do I find all files containing specific text on Linux?
+```
+grep --include=ngen-leaf-*.log -rnw ~/.gocrms/log/ -e 'etcdserver: too many requests'
+```
+Refer:
+```
+grep -rnw '/path/to/somewhere/' -e 'pattern'
+-r or -R is recursive,
+-n is line number, and
+-w stands for match the whole word.
+-l (lower-case L) can be added to just give the file name of matching files.
+```
+Along with these, --exclude, --include, --exclude-dir flags could be used for efficient searching:
+
+This will only search through those files which have .c or .h extensions:
+```
+grep --include=\*.{c,h} -rnw '/path/to/somewhere/' -e "pattern"
+```
+This will exclude searching all the files ending with .o extension:
+```
+grep --exclude=*.o -rnw '/path/to/somewhere/' -e "pattern"
+```
+For directories it's possible to exclude a particular directory(ies) through --exclude-dir parameter. For example, this will exclude the dirs dir1/, dir2/ and all of them matching `*.dst/`:
+```
+grep --exclude-dir={dir1,dir2,*.dst} -rnw '/path/to/somewhere/' -e "pattern"
+```
+This works very well for me, to achieve almost the same purpose like yours. For more options check man grep.
+
+# 使用grep排除一个或多个字符串
+```
+grep -v 'xxx'
+```
+

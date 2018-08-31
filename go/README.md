@@ -295,6 +295,15 @@ channel不需要通过close释放资源，只要没有goroutine持有channel，�
 
 close可以用来通知channel接收者不会再收到数据。所以即使channel中有数据也可以close而不会导致接收者收不到残留的数据。
 
+## run external command under another user
+```
+cmd := exec.Command(command, args...)
+cmd.SysProcAttr = &syscall.SysProcAttr{}
+cmd.SysProcAttr.Credential = &syscall.Credential{Uid: uid, Gid: gid}
+```
+
+https://stackoverflow.com/questions/21705950/running-external-commands-through-os-exec-under-another-user
+
 # Reference
 [Download](https://golang.org/dl/)
 

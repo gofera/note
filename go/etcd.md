@@ -96,6 +96,9 @@ then `source ~/.bashrc` in each server. And then run:
 $ etcd_fnode404 (or 408, 402 in the related server)
 ```
 
+## Bug: etcd --name xxxx-xxx
+The name cannot have '-', or else fail.
+
 ## Pure command line
 ```
 ETCDCTL_API=3 etcd  --name=fnode404 --initial-advertise-peer-urls=http://172.20.1.14:12380 --listen-peer-urls=http://172.20.1.14:12380 --listen-client-urls=http://172.20.1.14:12379 --advertise-client-urls=http://172.20.1.14:12379 --initial-cluster-token=etcd-cluster-1 --initial-cluster=http://172.20.1.14:12380,fnode408=http://172.20.1.18:12380,fnode402=http://172.20.1.12:12380 --initial-cluster-state=new
@@ -125,3 +128,30 @@ func (s *EtcdServer) Put(ctx context.Context, r *pb.PutRequest) (*pb.PutResponse
   return resp.(*pb.PutResponse), nil
 }
 ```
+
+# 集群大小与容错
+
+集群的大小指集群节点的个数。根据 etcd 的分布式数据冗余策略，集群节点越多，容错能力(Failure Tolerance)越强，同时写性能也会越差。
+所以关于集群大小的优化，其实就是容错和写性能的一个平衡。
+
+另外， etcd 推荐使用 奇数 作为集群节点个数。因为奇数个节点与和其配对的偶数个节点相比(比如 3节点和4节点对比)，
+容错能力相同，却可以少一个节点。
+
+所以综合考虑性能和容错能力，etcd 官方文档推荐的 etcd 集群大小是 3, 5, 7。至于到底选择 3,5 还是 7，根据需要的容错能力而定。
+
+关于节点数和容错能力对应关系，如下表所示：
+```
+集群大小  最大容错
+1 0
+3 1
+4 1
+5 2
+6 2
+7 3
+8 3
+9 4
+```
+所以，如果启动 2 个 etcd，挂了一个 etcd之后就不能用了，这是 by design 的。
+
+Reference: [搭建 etcd 集群 - 暴走漫画容器实践系列 Part3](https://segmentfault.com/a/1190000003852735)
+
