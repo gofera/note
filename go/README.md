@@ -224,6 +224,11 @@ https://github.com/motemen/gore
 ## gophernotes （嵌入Jupyter Notebook，基于网页的交互命令行）
 https://github.com/gopherdata/gophernotes
 
+## gops
+A tool to list and diagnose Go processes currently running on your system
+
+https://github.com/google/gops/
+
 # Mock
 ```
 $ go get github.com/golang/mock/gomock

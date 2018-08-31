@@ -73,3 +73,9 @@ git ls-files -v | grep '^h'                        # 列出忽略的文件
 ```
 git show HEAD:<file path>
 ```
+
+# git pull local repository
+For github, we can use `git pull`, for local repo, we can use:
+```
+git pull <local_repo_dir>
+```

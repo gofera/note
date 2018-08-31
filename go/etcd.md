@@ -112,3 +112,16 @@ $ etcdctl --endpoints=172.20.1.14:12379 member list
 b5af032ec7bb1a1d, started, fnode404, http://172.20.1.14:12380, http://172.20.1.14:12379
 d4bff22f96299b61, started, fnode408, http://172.20.1.18:12380, http://172.20.1.18:12379
 ```
+
+# Code Study
+## Server handling request
+src/github.com/coreos/etcd/etcdserver/v3_server.go
+```
+func (s *EtcdServer) Put(ctx context.Context, r *pb.PutRequest) (*pb.PutResponse, error) {
+  resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{Put: r})
+  if err != nil {
+    return nil, err
+  }
+  return resp.(*pb.PutResponse), nil
+}
+```
