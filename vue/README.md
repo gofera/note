@@ -15,3 +15,13 @@ Plugins: vue , VueHelper 和 vetur
 ```
 npm install -g eslint
 ```
+
+# Setup
+## CLI
+```
+npm install -g @vue/cli
+```
+## Create project
+```
+vue create hello-world
+```

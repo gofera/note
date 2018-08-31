@@ -65,8 +65,16 @@ yarn config set registry https://registry.yarnpkg.com/
 国内用户可以通过淘宝镜像提高下载速度：
 ```
 npm config set registry https://registry.npm.taobao.org
+npm config set disturl https://npm.taobao.org/dist
+
 yarn config set registry https://registry.npm.taobao.org
+yarn config set disturl https://npm.taobao.org/dist
 ```
+删除淘宝镜像：
+```
+npm config edit
+```
+找到相应配置行后删除。
 
 ## 代理
 如果上网需要代理的话，可以在`~/.bashrc`加入如下内容：

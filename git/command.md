@@ -73,3 +73,47 @@ git ls-files -v | grep '^h'                        # 列出忽略的文件
 ```
 git show HEAD:<file path>
 ```
+
+# Submit existing git project to remote git repository (new)
+First, create a new repository in GitHub/Bitbucket. Then:
+```
+$ cd ${your_code_root}
+$ git remote add origin ${remote_git_repository}
+```
+If origin has already existed, the above command will fail, we can remove it first:
+```
+$ git remote -v
+origin  ${original_git_repository} (fetch)
+origin  ${original_git_repository} (push)
+$ git remote remove origin
+```
+Or change instead remove/add:
+```
+$ git remote set-url origin ${remote_git_repository}
+```
+And then add as the above command. Then push the code to remove repository:
+```
+git push -u origin master
+```
+
+# Tip for git completion in Linux
+```
+$ vi ~/.bashrc
+```
+Then add the following:
+```
+for file in /etc/bash_completion.d/* ; do
+  source "$file"
+done
+```
+Then `source ~/.bashrc`. Then your git will have tip for completion by press tab (or double press):
+```
+-bash-4.1$ git push origin 
+comment_for_activator          FETCH_HEAD                     master                         origin/comment_for_activator 
+control_access                 HEAD                           ORIG_HEAD                      origin/master
+```
+
+# git无法pull仓库refusing to merge unrelated histories
+```
+git pull --allow-unrelated-histories
+```
