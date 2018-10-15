@@ -90,7 +90,9 @@ go test -run TestCrmsd github.com/WenzheLiu/GoCRMS/gocrms  // run TestCrmsd in p
 ## JetBrains的Goland
 这是Go最好的IDE，官网：https://www.jetbrains.com/go/。
 
-非常好，缺点是收费。license server: http://idea.youbbs.org
+非常好，缺点是收费。license server: 
+1. http://idea.youbbs.org (not work)
+2. http://idea.iblue.me
 
 ZuChiMa: 
 1. http://blog.csdn.net/john_f_lau/article/details/78762330
@@ -223,6 +225,11 @@ https://github.com/motemen/gore
 
 ## gophernotes （嵌入Jupyter Notebook，基于网页的交互命令行）
 https://github.com/gopherdata/gophernotes
+
+## gops
+A tool to list and diagnose Go processes currently running on your system
+
+https://github.com/google/gops/
 
 # Mock
 ```

@@ -116,6 +116,19 @@ b5af032ec7bb1a1d, started, fnode404, http://172.20.1.14:12380, http://172.20.1.1
 d4bff22f96299b61, started, fnode408, http://172.20.1.18:12380, http://172.20.1.18:12379
 ```
 
+# Code Study
+## Server handling request
+src/github.com/coreos/etcd/etcdserver/v3_server.go
+```
+func (s *EtcdServer) Put(ctx context.Context, r *pb.PutRequest) (*pb.PutResponse, error) {
+  resp, err := s.raftRequest(ctx, pb.InternalRaftRequest{Put: r})
+  if err != nil {
+    return nil, err
+  }
+  return resp.(*pb.PutResponse), nil
+}
+```
+
 # 集群大小与容错
 
 集群的大小指集群节点的个数。根据 etcd 的分布式数据冗余策略，集群节点越多，容错能力(Failure Tolerance)越强，同时写性能也会越差。
@@ -141,3 +154,4 @@ d4bff22f96299b61, started, fnode408, http://172.20.1.18:12380, http://172.20.1.1
 所以，如果启动 2 个 etcd，挂了一个 etcd之后就不能用了，这是 by design 的。
 
 Reference: [搭建 etcd 集群 - 暴走漫画容器实践系列 Part3](https://segmentfault.com/a/1190000003852735)
+
