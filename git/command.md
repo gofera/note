@@ -123,3 +123,12 @@ control_access                 HEAD                           ORIG_HEAD         
 ```
 git pull --allow-unrelated-histories
 ```
+
+# git issue: SSL certificate problem: Unable to get local issuer certificate
+refer: [SSL certificate problem: Unable to get local issuer certificate](https://confluence.atlassian.com/bitbucketserverkb/ssl-certificate-problem-unable-to-get-local-issuer-certificate-816521128.html). 
+
+Work around: Tell git to not perform the validation of the certificate using the global option:
+
+```
+git config --global http.sslVerify false
+```
