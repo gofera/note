@@ -132,3 +132,24 @@ Work around: Tell git to not perform the validation of the certificate using the
 ```
 git config --global http.sslVerify false
 ```
+
+# git push and create remote branch
+```
+git push --set-upstream origin <branch_name>
+```
+
+# git delete local branch
+```
+git branch -D <branch_name>     # force delete
+git branch -d <branch_name>
+```
+
+# list all branches
+```
+git branch -a
+```
+
+# git revert commit
+```
+git revert <commit_id>
+```
