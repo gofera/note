@@ -183,3 +183,78 @@ This works very well for me, to achieve almost the same purpose like yours. For 
 grep -v 'xxx'
 ```
 
+# mount 其它机器的路径
+比如要把 146.106.207.104:/h/user mount到本机器的 /h/user 目录，可以：
+```
+$ sudo su
+# vi /etc/fstab
+```
+文件最后加入一行：
+```
+146.106.207.104:/h/user /h/user nfs proto=tcp,nfsvers=3,hard,bg,intr  0 0
+```
+生效方式：
+```
+mount -a
+```
+
+# curl: web client
+http get:
+```
+curl localhost:7001/api/hello
+```
+https get:
+```
+curl -k https://localhost:443/findcode/api/hello
+```
+# Create the home directory while creating a user
+
+For command line, these should work:
+```
+useradd -m USERNAME
+```
+You have to use -m, otherwise no home directory will be created. If you want to specify the path of the home directory, use -d and specify the path:
+```
+useradd -m -d /PATH/TO/FOLDER USERNAME
+```
+You can then set the password with:
+```
+passwd USERNAME
+```
+All of the above need to be run as root, or with the sudo command beforehand. For more info, run man adduser.
+
+# Create default home directory for existing user in terminal
+```
+mkhomedir_helper username
+```
+
+# solution to no X (graphic) environment with error: xauth not creating .Xauthority file
+
+Follow these steps to create a $HOME/.Xauthority file.
+
+Log in as user and confirm that you are in the user's home directory.
+
+## Rename the existing .Xauthority file by running the following command
+```
+mv .Xauthority old.Xauthority 
+```
+
+## xauth with complain unless ~/.Xauthority exists
+```
+touch ~/.Xauthority
+```
+## only this one key is needed for X11 over SSH 
+```
+xauth generate :0 . trusted 
+```
+## generate our own key, xauth requires 128 bit hex encoding
+```
+xauth add ${HOST}:0 . $(xxd -l 16 -p /dev/urandom)
+```
+
+## To view a listing of the .Xauthority file, enter the following 
+```
+xauth list 
+```
+After that no more problems with .Xautority file since then.
+

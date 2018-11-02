@@ -54,7 +54,10 @@ The package will download to the sub directry `node_modules` (created if not exi
 
 This will also update your package.json and your yarn.lock so that other developers working on the project will get the same dependencies as you when they run yarn or yarn install.
 
-Most packages will be installed from the npm registry and referred to by simply their package name. 
+Most packages will be installed from the npm registry and referred to by simply their package name.
+
+## yarn global
+Similar to `npm install package -g`, use: `yarn global add package`. 
 
 ## remove dependency
 ```
