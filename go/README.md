@@ -289,6 +289,11 @@ interface 被两个元素 value 和 type 所表示。只有在 value 和 type �
 
 Reference: [Golang 博主走过的有关 error 的一些坑](https://deepzz.com/post/why-nil-error-not-equal-nil.html)
 
+# dep
+`dep ensure`无法拉取golang.cn以及google.golang.org的依赖问题，请问有什么办法能解决吗?
+
+Answer: 可以用我的 fork 版本（请自行编译）：https://github.com/cuigh/dep. 
+
 # Question
 
 ## channel 可以 close(ch) 我们不用的时候需不需要同样关闭掉，不需要的话 close 主要是什么作用的？
