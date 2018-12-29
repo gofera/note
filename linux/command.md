@@ -7,9 +7,24 @@ du --max-depth=1 . -m
 ```
 Here, `.` means the current folder, `-m` means the unit is MB, `--max-depth=1` means only shows the first level sub folders.
 
+# 压缩 tar.gz
+```
+tar -czvf xxx.tar.gz xxx_folder
+```
+
+# 解压 tar.gz
+```
+tar -xzvf xxx.tar.gz
+```
+
 # 解压tar.bz2
 ```
 tar -xf **.tar.bz2
+```
+
+# 解压tar.xz
+```
+tar xvJf  ***.tar.xz
 ```
 
 # ruptime
@@ -257,4 +272,48 @@ xauth add ${HOST}:0 . $(xxd -l 16 -p /dev/urandom)
 xauth list 
 ```
 After that no more problems with .Xautority file since then.
+
+# disk usage (also for mounted usage)
+```
+$ df
+Filesystem             1K-blocks       Used Available Use% Mounted on
+/dev/mapper/LOCAL-ROOT
+                         1998672    1853340     40476  98% /
+tmpfs                    1962148        216   1961932   1% /dev/shm
+/dev/sda1                 194241      80309    103692  44% /boot
+
+```
+
+# list size of sub folders
+```
+$ cd <YOUR_DIR>
+$ du --max-depth=1 -h
+```
+
+# Bash for loop with range
+```
+for i in {1..3};
+do
+    echo "Iteration $i"
+done
+```
+
+# Apache httpd
+Task: Start httpd server:
+```
+# service httpd start
+```
+Task: Restart httpd server:
+```
+# service httpd restart
+```
+Task: Stop httpd server:
+```
+# service httpd stop
+```
+It is also good idea to check configuration error before typing restart option:
+```
+# httpd -t
+# httpd -t -D DUMP_VHOSTS
+```
 

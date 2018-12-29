@@ -33,3 +33,7 @@ pip install <lib> --user
 ```
 The package will be installed in user local directory.
 
+# How to find a Python package's dependencies
+```
+pip show tornado
+```
