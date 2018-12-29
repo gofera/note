@@ -153,3 +153,57 @@ git branch -a
 ```
 git revert <commit_id>
 ```
+
+# pull VS fetch
+```
+git pull = git fetch + git merge
+```
+在本地新建一个temp分支，并将远程origin仓库的master分支代码下载到本地temp分支
+```
+git fetch origin master:tmp 
+```
+ref: [详解git fetch与git pull的区别](https://blog.csdn.net/riddle1981/article/details/74938111)
+
+# Add Remote Repositories
+```
+$ git remote
+origin
+$ git remote add pb https://github.com/paulboone/ticgit
+$ git remote -v
+origin  https://github.com/schacon/ticgit (fetch)
+origin  https://github.com/schacon/ticgit (push)
+pb  https://github.com/paulboone/ticgit (fetch)
+pb  https://github.com/paulboone/ticgit (push)
+
+$ git pull pb master:tmp
+```
+ref: [Git on the Server - Getting Git on a Server](https://git-scm.com/book/en/v2/Git-on-the-Server-Getting-Git-on-a-Server#_getting_git_on_a_server)
+
+Suggest never commit in `master` branch，and never `pull` from other remote server except origin.
+
+
+# Reset or revert a specific file to a specific revision using Git?
+Assuming the hash of the commit you want is c5f567:
+```
+git checkout c5f567 -- file1/to/restore file2/to/restore
+```
+Ref: https://stackoverflow.com/questions/215718/reset-or-revert-a-specific-file-to-a-specific-revision-using-git
+
+# diff file with origin master
+```
+git diff origin/master file
+```
+
+# git log one line
+```
+git log --pretty=oneline
+```
+
+# git log graph
+```
+git log --graph
+```
+# revert current change
+```
+git reset --hard HEAD
+```

@@ -128,6 +128,10 @@ go get -u github.com/derekparker/delve/cmd/dlv
 ```
 dlv debug wenzhe/lab      # wenzhe/lab包是要调试的包，相对于$GOPATH/src的路径, 里面有可执行程序，
 ```
+如果被调试程序有参数，使用`--`分隔，如：
+```
+dlv debug crms/app/etcd/crms -- get job
+```
 进入`debug`模式后，可以`help`列出帮助，其实与gdb的命令差不多，多了协程支持。
 ```
 (dlv) b main.main  # 包名.方法名 或者 路径/xx.go:行号
