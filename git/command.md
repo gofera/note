@@ -207,3 +207,7 @@ git log --graph
 ```
 git reset --hard HEAD
 ```
+# revert to specified version
+```
+git reset --hard 956490f0f966804003ca492ca72c61
+```

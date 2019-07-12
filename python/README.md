@@ -37,3 +37,27 @@ The package will be installed in user local directory.
 ```
 pip show tornado
 ```
+# install python3.7 in Linux
+```
+wget http://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz
+tar -xvzf Python-3.7.0.tgz
+cd Python-3.7.0
+./configure --with-ssl
+make
+sudo make install
+```
+# pip3升级10.0后cannot import name 'main'
+```
+vi /usr/bin/pip3
+```
+修改后
+```
+from pip import __main__
+
+if __name__ == '__main__':
+    sys.exit(__main__._main())
+```
+# After installing with pip, “jupyter: command not found”
+```
+~/.local/bin/jupyter-notebook
+```

@@ -227,6 +227,11 @@ go build <go-web-app>
 ## gore （交互式命令行，类似Python IDLE）
 https://github.com/motemen/gore
 
+## gomacro（交互式命令行，类似Python IDLE, better and newer then gore）
+```
+$ go get -u github.com/cosmos72/gomacro
+```
+
 ## gophernotes （嵌入Jupyter Notebook，基于网页的交互命令行）
 https://github.com/gopherdata/gophernotes
 

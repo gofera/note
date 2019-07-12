@@ -317,3 +317,33 @@ It is also good idea to check configuration error before typing restart option:
 # httpd -t -D DUMP_VHOSTS
 ```
 
+# uninstall package
+删除软件及其配置文件
+```
+sudo apt-get --purge remove <package>
+```
+删除没用的依赖包
+```
+sudo apt-get autoremove <package>
+```
+此时dpkg的列表中有“rc”状态的软件包，可以执行如下命令做最后清理：
+```
+sudo dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P
+```
+
+# grep
+```
+weliu@x1:~$ grep -brin -e "gopher.*china" ~/ppt --exclude-dir=.git
+/home/weliu/ppt/github.com/bigwhite/talks/gopherchina/2017/go-coding-in-go-way-cn.slide:2:20:GopherChina 2017
+/home/weliu/ppt/github.com/bigwhite/talks/gopherchina/2017/go-coding-in-go-way-cn.slide:426:10691:  buf.WriteString("gopherchina ")
+
+weliu@x1:~$ grep -nbri -e 'import "os"' ~/ppt --exclude-dir=.git
+/home/weliu/ppt/github.com/davecheney/presentations/gopher-puzzlers/missing-panic2.go:3:14:import "os"
+/home/weliu/ppt/presentations/gopher-puzzlers/missing-panic2.go:3:14:import "os"
+/home/weliu/ppt/share_go/goexamples/string-formatting.go:5:42:import "os"
+/home/weliu/ppt/share_go/goexamples/defer.go:3:26:import "os"
+
+weliu@x1:~$ grep -brin -e 'defer.go' ~/ppt --exclude-dir=.git --include=*.slide
+/home/weliu/ppt/share_go/goexamples.slide:349:8319:.play -edit -numbers goexamples/defer.go
+```
+
