@@ -337,6 +337,26 @@ weliu@x1:~$ grep -brin -e "gopher.*china" ~/ppt --exclude-dir=.git
 /home/weliu/ppt/github.com/bigwhite/talks/gopherchina/2017/go-coding-in-go-way-cn.slide:2:20:GopherChina 2017
 /home/weliu/ppt/github.com/bigwhite/talks/gopherchina/2017/go-coding-in-go-way-cn.slide:426:10691:  buf.WriteString("gopherchina ")
 
+weliu@x1:~$ grep -rine 'python vs go' ~/ppt --exclude-dir=.git
+/home/weliu/ppt/learnt_from_gopherchina2009/learnt.slide:175:* Python VS Go
+
+weliu@x1:~$ head -175 /home/weliu/ppt/learnt_from_gopherchina2009/learnt.slide | grep -c '\* '
+23
+
+weliu@x1:~$ grep -rine 'argError' ~/ppt --exclude-dir=.git
+/home/weliu/ppt/share_go/goexamples/errors.go:15:type argError struct {
+/home/weliu/ppt/share_go/goexamples/errors.go:20:func (e *argError) Error() string {
+/home/weliu/ppt/share_go/goexamples/errors.go:26:		return -1, &argError{arg, "can't work with it"}
+/home/weliu/ppt/share_go/goexamples/errors.go:49:	if ae, ok := e.(*argError); ok { // check error type
+
+weliu@x1:~$ grep -rin 'goexamples/errors.go' /home/weliu/ppt/share_go/ --exclude-dir=.git --include=*.slide
+/home/weliu/ppt/share_go/goexamples.slide:343:.code -edit -numbers goexamples/errors.go /START1 OMIT/,/END1 OMIT/
+/home/weliu/ppt/share_go/goexamples.slide:346:.play -edit -numbers goexamples/errors.go /START2 OMIT/,/END2 OMIT/
+
+weliu@x1:~$ head -343 /home/weliu/ppt/share_go/goexamples.slide | grep -c '\* '
+59
+
+
 weliu@x1:~$ grep -nbri -e 'import "os"' ~/ppt --exclude-dir=.git
 /home/weliu/ppt/github.com/davecheney/presentations/gopher-puzzlers/missing-panic2.go:3:14:import "os"
 /home/weliu/ppt/presentations/gopher-puzzlers/missing-panic2.go:3:14:import "os"
