@@ -11,3 +11,5 @@
 [微服务（Microservices）](https://mp.weixin.qq.com/s/fzk-kENu0I22P3F2Vu7KBA)
 
 [Spring Cloud 微服务架构学习笔记与示例](https://www.cnblogs.com/edisonchou/p/java_spring_cloud_foundation_sample_list.html)
+
+[数人云|万字解读:Service Mesh服务网格新生代--Istio](https://www.jianshu.com/p/23fdaa6bb65b)
