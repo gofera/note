@@ -1,3 +1,9 @@
+# don't have to install pip
+just use `python -m pip xxxx`, for example:
+```
+$ python -m pip install beautifulsoup4 --user
+```
+
 # install pip without root
 First download get-pip.py from web by:
 ```
