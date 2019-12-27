@@ -67,3 +67,11 @@ if __name__ == '__main__':
 ```
 ~/.local/bin/jupyter-notebook
 ```
+
+# Python pip离线安装package方法总结
+https://imshuai.com/python-pip-install-package-offline-tensorflow
+
+```
+python -m pip download --platform manylinux1_x86_64 --only-binary=:all: --no-binary=:none:  grpcio
+```
+
