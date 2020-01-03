@@ -211,3 +211,6 @@ git reset --hard HEAD
 ```
 git reset --hard 956490f0f966804003ca492ca72c61
 ```
+# Windows下git bash中添加wget
+download from https://eternallybored.org/misc/wget/, then mv to C:\Program Files\Git\mingw64\bin\ or ~\AppData\Local\Programs\Git\mingw64\bin
+Ref: [Windows下git bash中添加wget](https://www.jianshu.com/p/fb6601795011)
