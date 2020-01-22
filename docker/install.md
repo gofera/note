@@ -52,3 +52,11 @@ ACTIVATE your own engine to Docker Engine - Enterprise using:
 
   sudo docker engine activate
 
+# 配置国内镜像
+```
+weliu@x1:~$ vi /etc/docker/daemon.json 
+weliu@x1:~$ cat /etc/docker/daemon.json 
+{
+  "registry-mirrors": ["http://hub-mirror.c.163.com"]
+}
+```
