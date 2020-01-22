@@ -366,4 +366,13 @@ weliu@x1:~$ grep -nbri -e 'import "os"' ~/ppt --exclude-dir=.git
 weliu@x1:~$ grep -brin -e 'defer.go' ~/ppt --exclude-dir=.git --include=*.slide
 /home/weliu/ppt/share_go/goexamples.slide:349:8319:.play -edit -numbers goexamples/defer.go
 ```
+# install Ubuntu in VirtualBox
+[基于VirtualBox虚拟机安装Ubuntu图文教程](https://blog.csdn.net/u012732259/article/details/70172704)
 
+安装VirtualBox虚拟机增强功能:
+```
+$ sudo apt install gcc
+$ sudo apt-get install build-essential virtualbox-guest-dkms
+$ cd /media/weliu/VBox_GAs_6.1.2
+$ sudo ./VBoxLinuxAdditions.run
+```
