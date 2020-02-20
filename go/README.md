@@ -303,6 +303,14 @@ Reference: [Golang 博主走过的有关 error 的一些坑](https://deepzz.com/
 
 Answer: 可以用我的 fork 版本（请自行编译）：https://github.com/cuigh/dep. 
 
+# Go mod proxy in China
+```
+$ go env -w GOBIN=$HOME/bin
+$ go env -w GO111MODULE=on
+$ go env -w GOPROXY=https://goproxy.cn,direct
+```
+Ref: [干货满满的 Go Modules 和 goproxy.cn](https://blog.csdn.net/RA681t58CJxsgCkJ31/article/details/102578187)
+
 # Question
 
 ## channel 可以 close(ch) 我们不用的时候需不需要同样关闭掉，不需要的话 close 主要是什么作用的？

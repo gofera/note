@@ -24,3 +24,16 @@ vi ~/.vimrc
 ```
 :set nu
 ```
+# show current file and its folder path
+current file: `%`
+
+current folder: `%:p:h`
+
+# open current folder
+```
+:E
+```
+
+# Reference
+1. [Vim 中进行文件目录操作](https://www.cnblogs.com/Dev0ps/p/11661394.html)
+2. [史上最全Vim快捷键键位图(入门到进阶)](https://www.runoob.com/w3cnote/all-vim-cheatsheat.html)

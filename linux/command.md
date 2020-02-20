@@ -376,3 +376,9 @@ $ sudo apt-get install build-essential virtualbox-guest-dkms
 $ cd /media/weliu/VBox_GAs_6.1.2
 $ sudo ./VBoxLinuxAdditions.run
 ```
+
+# curl
+Upload file:
+```
+curl -F files=@/Users/zcl/ppt/web_client.go http://localhost:7550/upload   ('files' is the key that server's form.File map)
+```
