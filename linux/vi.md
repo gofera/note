@@ -33,6 +33,22 @@ current folder: `%:p:h`
 ```
 :E
 ```
+# copy to clipboard and paste from clipboard
+
+On Mac OSX
+```
+copy selected part: visually select text(type v or V in normal mode) and type :w !pbcopy
+copy the whole file :%w !pbcopy
+paste from the clipboard :r !pbpaste
+```
+
+On most Linux Distros, you can substitute:
+
+```
+pbcopy above with xclip -i -sel c or xsel -i -b
+pbpaste using xclip -o -sel -c or xsel -o -b
+-- Note: In case neither of these tools (xsel and xclip) are preinstalled on your distro, you can probably find them in the repos
+```
 
 # Reference
 1. [Vim 中进行文件目录操作](https://www.cnblogs.com/Dev0ps/p/11661394.html)
